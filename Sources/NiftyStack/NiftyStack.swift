@@ -12,30 +12,17 @@ public struct NiftyStack<Content>: View where Content : View {
 
   public let content: () -> Content
 
-  private let navigationBarHidden: Bool
-
   public init(content: @escaping () -> Content) {
-    self.init(navigationBarHidden: false, content: content)
-  }
-
-  public init(navigationBarHidden: Bool, content: @escaping () -> Content) {
     self.content = content
-    self.navigationBarHidden = navigationBarHidden
   }
 
   public var body: some View {
     if #available(iOS 16.0, *) {
-      NavigationStack { navContent }
+      NavigationStack { content() }
     } else {
-      NavigationView { navContent }
+      NavigationView { content() }
         .navigationViewStyle(StackNavigationViewStyle())
     }
-  }
-
-  @ViewBuilder
-  private var navContent: some View {
-    content()
-      .navigationBarHidden(navigationBarHidden)
   }
 
 }
