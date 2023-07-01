@@ -12,6 +12,10 @@ public struct NiftyStack<Content>: View where Content : View {
 
   public let content: () -> Content
 
+  public init(content: @escaping () -> Content) {
+    self.content = content
+  }
+
   public var body: some View {
     if #available(iOS 16.0, *) {
       NavigationStack {
